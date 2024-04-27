@@ -60,15 +60,19 @@ class MenuWindow(tk.Frame):
         
         remove_button = tk.Button(self, text="Remove Item", command=self.remove_item)
         remove_button.pack(side="left", padx=5, anchor="c")
-
+    #Function to add items to menu
     def add_item(self):
+        #Getting item from text entry
         new_item = self.new_item_entry.get()
+        #Item gets added to array
         if new_item:
             self.menu_items.append(new_item)
             self.update_menu_display()
 
     def remove_item(self):
+        #Getting item from text entry
         selected_item = self.new_item_entry.get()
+        #If the item is in the array, it gets removed and window is updated
         if selected_item in self.menu_items:
             self.menu_items.remove(selected_item)
             self.update_menu_display()
