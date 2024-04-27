@@ -1,17 +1,40 @@
-class Restaurant:
-    def __init__(self):
-        self.time_slot = {}
-        self.date_slot = {}
-        self.book_tables = {}
+class Reservation:
+  # Internal class, use the Reservations class instead
+  def __init__(self, name, num_customers, reservation_date, reservation_time):
+    self.name = name
+    self.num_customers = num_customers
+    self.reservation_date = reservation_date
+    self.reservation_time = reservation_time
 
     
-    def add_time_slot(self, time_slot, availability=True):
-        self.time_slot[time_slot] = availability
+    
+  def new_reservation(self,name, num_customers, reservation_date, reservation_time):
+    self.name = name 
+    self.num_customers = num_customers
+    self.reservation_date = reservation_date
+    self.reservation_time = reservation_time
 
-    def add_date_slot(self, date, availability=True):
-        self.date_slot[date] = availability 
+
+  def modifying_reservation(self, name, num_customers, reservation_date, reservation_time):
+    self.name = name
+    self.num_customers = num_customers
+    self.reservation_date = reservation_date
+    self.reservation_time = reservation_time
+  
+  
+  def update_name(self, name):
+    self.name = name
+  
+  
+  def update_num_customers(self, num_customers):
+    self.num_customers = num_customers
+  
+  
+  def update_reservation_date(self, new_reservation_date):
+    self.reservation_date = reservation_date
+  
+  
+  def update_reservation_time(self, new_reservation_time):
+    self.reservation_time = reservation_time
     
-    def book_tables(self, table_number):
-        self.book_table.append(table_number) 
-    
-restaurant = Restaurant()
+  
