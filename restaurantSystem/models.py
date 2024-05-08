@@ -10,11 +10,13 @@ class MenuItem(models.Model):
 
 
 class Reservation(models.Model):
+    # Name of the person making the reservation
+    name = models.CharField(max_length=100)
     number_of_guests = models.IntegerField()
     reservation_time = models.DateTimeField()
 
     def __str__(self):
-        return f"Reservation for {self.number_of_guests} on {self.reservation_time}"
+        return f"Reservation for {self.name} - {self.number_of_guests} guests at {self.reservation_time}"
 
 
 class Order(models.Model):

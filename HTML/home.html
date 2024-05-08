@@ -3,18 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Restaurant Home</title>
   </head>
   <body>
-    <h1>Welcome to the Restaurant Management System</h1>
-    <form action="http://127.0.0.1:8000/menu" method="get">
-      <button type="submit">Menu</button>
-    </form>
-    <form action="http://127.0.0.1:8000/menu" method="get">
-      <button type="submit">Orders</button>
-    </form>
-    <form action="http://127.0.0.1:8000/menu" method="get">
-      <button type="submit">Reservations</button>
-    </form>
+    <h1>Welcome to Our Restaurant</h1>
+    <p>Select an option to continue:</p>
+    <ul>
+      <li><a href="{% url 'menu' %}">View Menu</a></li>
+      <li><a href="{% url 'add_reservation' %}">Make a Reservation</a></li>
+      <li><a href="{% url 'orders' %}">View Orders</a></li>
+      <li><a href="{% url 'reservations' %}">View Reservations</a></li>
+    </ul>
   </body>
 </html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import MenuItem
+from .models import MenuItem, Reservation
+from .forms import ReservationForm
 from django.views.decorators.http import require_POST
 
 
@@ -33,5 +34,19 @@ def orders(request):
     return render(request, 'orders.html')
 
 
-def reservations(request):
-    return render(request, 'reservations.html')
+def view_reservations(request):
+    # Fetch all reservations from the database, ordered by reservation time descending
+    reservations = Reservation.objects.all().order_by('-reservation_time')
+    return render(request, 'reservations.html', {'reservations': reservations})
+
+
+def add_reservation(request):
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a page that shows reservations
+            return redirect('reservations')
+    else:
+        form = ReservationForm()
+    return render(request, 'add_reservation.html', {'form': form})
