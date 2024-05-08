@@ -1,11 +1,11 @@
-from django.contrib import admin
 from django.urls import path
-from . import views
+from .views import menu, add_item, remove_item, orders, reservations, home
 
-# setting urls for pages
 urlpatterns = [
-    path('', views.home, name='management-home'),
-    path('menu/', views.menu, name='management-menu'),
-    path('orders/', views.orders, name='management-orders'),
-    path('reservations/', views.reservations, name='management-reservations')
+    path('menu/', menu, name='menu'),  # Updated to include 'menu/'
+    path('add_item/', add_item, name='add_item'),
+    path('remove_item/<int:item_id>/', remove_item, name='remove_item'),
+    path('orders/', orders, name='orders'),
+    path('reservations/', reservations, name='reservations'),
+    path('home/', home, name='home'),
 ]
