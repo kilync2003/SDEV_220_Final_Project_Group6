@@ -6,13 +6,14 @@
     <title>Restaurant Home</title>
   </head>
   <body>
-    <h1>Welcome to Our Restaurant</h1>
-    <p>Select an option to continue:</p>
+    <h1>Welcome to Our Restaurant Management System</h1>
+    <p>Please select an option below to proceed:</p>
     <ul>
-      <li><a href="{% url 'menu' %}">View Menu</a></li>
-      <li><a href="{% url 'add_reservation' %}">Make a Reservation</a></li>
-      <li><a href="{% url 'orders' %}">View Orders</a></li>
-      <li><a href="{% url 'reservations' %}">View Reservations</a></li>
+      <li><a href="{% url 'menu' %}">View and Manage Menu</a></li>
+      <li>
+        <a href="{% url 'view_reservations' %}">View and Manage Reservations</a>
+      </li>
+      <li><a href="{% url 'view_orders' %}">View and Manage Orders</a></li>
     </ul>
   </body>
 </html>

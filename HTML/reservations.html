@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Reservations</title>
-  </head>
-  <body>
+</head>
+<body>
     <h1>Current Reservations</h1>
     {% if reservations %}
-    <ul>
-      {% for reservation in reservations %}
-      <li>
-        Reservation by {{ reservation.name }} for {{ reservation.number_of_guests }} guests at {{ reservation.reservation_time|date:"Y-m-d H:i" }}
-      </li>
-      {% endfor %}
-    </ul>
+        <ul>
+            {% for reservation in reservations %}
+                <li>
+                    Reservation by {{ reservation.name }} for {{ reservation.number_of_guests }} guests at {{ reservation.reservation_time|date:"Y-m-d H:i" }}
+                    <!-- Delete form -->
+                    <form action="{% url 'delete_reservation' reservation.id %}" method="post">
+                        {% csrf_token %}
+                        <a href="{% url 'create_order' reservation.id %}">Create/View Order</a>
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
     {% else %}
-    <p>No reservations have been made yet.</p>
+        <p>No reservations have been made yet.</p>
     {% endif %}
-    <a href="{% url 'add_reservation' %}">Make a New Reservation</a><br />
+    <a href="{% url 'add_reservation' %}">Make a New Reservation</a><br>
     <a href="{% url 'home' %}">Back to Home</a>
-  </body>
+</body>
 </html>

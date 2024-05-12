@@ -3,18 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Orders</title>
+    <title>All Orders</title>
   </head>
   <body>
-    <h1>Orders</h1>
-    <form action="http://127.0.0.1:8000" method="get">
-      <button type="submit">Home</button>
-    </form>
-    <form action="http://127.0.0.1:8000/menu" method="get">
-      <button type="submit">Menu</button>
-    </form>
-    <form action="http://127.0.0.1:8000/reservations" method="get">
-      <button type="submit">Reservations</button>
-    </form>
+    <h1>All Orders</h1>
+    {% if orders %}
+    <ul>
+      {% for order in orders %}
+      <li>
+        Order ID: {{ order.id }} - Reservation for {{ order.reservation.name }}({{ order.reservation.reservation_time|date:"Y-m-d H:i" }})
+        <ul>
+          <li>Total Cost: ${{ order.total }}</li>
+          <li><a href="{% url 'order_details' order.id %}">View Details</a></li>
+          <li><a href="{% url 'add_order_item' order.id %}">Add Items</a></li>
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No orders have been created yet.</p>
+    {% endif %}
+    <a href="{% url 'home' %}">Back to Home</a>
   </body>
 </html>

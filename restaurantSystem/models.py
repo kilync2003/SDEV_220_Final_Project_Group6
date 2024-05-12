@@ -20,20 +20,25 @@ class Reservation(models.Model):
 
 
 class Order(models.Model):
-    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
-    menu_items = models.ManyToManyField(MenuItem, through='OrderItem')
+    reservation = models.ForeignKey(
+        Reservation, on_delete=models.CASCADE, related_name='orders')
+    total = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+    # New field to track order status
+    is_completed = models.BooleanField(default=False)
 
-    def get_total(self):
-        return sum(item.price * item.quantity for item in self.orderitem_set.all())
-
-    def __str__(self):
-        return f"Order for Reservation {self.reservation.id}"
+    def calculate_total(self):
+        self.total = sum(item.total_price for item in self.items.all())
+        self.save()
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order, related_name='items', on_delete=models.CASCADE)
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    total_price = models.DecimalField(
+        max_digits=8, decimal_places=2, editable=False)
 
-    def __str__(self):
-        return f"{self.quantity} x {self.menu_item.name}"
+    def save(self, *args, **kwargs):
+        self.total_price = self.quantity * self.menu_item.price
+        super().save(*args, **kwargs)

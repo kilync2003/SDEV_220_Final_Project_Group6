@@ -1,5 +1,5 @@
 from django import forms
-from .models import Reservation
+from .models import Reservation, OrderItem, MenuItem
 
 
 class ReservationForm(forms.ModelForm):
@@ -9,3 +9,9 @@ class ReservationForm(forms.ModelForm):
         widgets = {
             'reservation_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
+
+
+class OrderItemForm(forms.ModelForm):
+    class Meta:
+        model = OrderItem
+        fields = ['menu_item', 'quantity']
