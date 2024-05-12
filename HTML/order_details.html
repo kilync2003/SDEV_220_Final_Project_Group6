@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Order Details</title>
+  </head>
+  <body>
+    <h1>Order Details</h1>
+    <p>Total: {{ order.total }}</p>
+    <ul>
+      {% for item in order.items.all %}
+      <li>
+        {{ item.menu_item.name }} - Quantity: {{ item.quantity }} - Subtotal: {{ item.total_price }}
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'checkout_order' order.id %}">Checkout Order</a><br />
+    <a href="{% url 'home' %}">Back to Home</a>
+  </body>
+</html>
