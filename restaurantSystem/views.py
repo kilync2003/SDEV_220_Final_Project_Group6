@@ -46,7 +46,8 @@ def add_reservation(request):
         if form.is_valid():
             form.save()
             # Redirect to a page that shows reservations
-            return redirect('reservations')
+            return redirect('view_reservations')
+
     else:
         form = ReservationForm()
     return render(request, 'add_reservation.html', {'form': form})
@@ -57,7 +58,7 @@ def delete_reservation(request, reservation_id):
     reservation = Reservation.objects.get(id=reservation_id)
     reservation.delete()
     # Redirect back to the reservations listing page
-    return redirect('reservations')
+    return redirect('view_reservations')
 
 
 def create_order(request, reservation_id):
