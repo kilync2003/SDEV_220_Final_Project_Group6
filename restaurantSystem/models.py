@@ -10,7 +10,6 @@ class MenuItem(models.Model):
 
 
 class Reservation(models.Model):
-    # Name of the person making the reservation
     name = models.CharField(max_length=100)
     number_of_guests = models.IntegerField()
     reservation_time = models.DateTimeField()
@@ -21,9 +20,8 @@ class Reservation(models.Model):
 
 class Order(models.Model):
     reservation = models.ForeignKey(
-        Reservation, on_delete=models.CASCADE, related_name='orders')
+        Reservation, on_delete=models.SET_NULL, related_name='orders', null=True, blank=True)
     total = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
-    # New field to track order status
     is_completed = models.BooleanField(default=False)
 
     def calculate_total(self):

@@ -45,7 +45,6 @@ def add_reservation(request):
         form = ReservationForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect to a page that shows reservations
             return redirect('view_reservations')
 
     else:
@@ -53,11 +52,9 @@ def add_reservation(request):
     return render(request, 'add_reservation.html', {'form': form})
 
 
-@require_POST  # Ensures this view can only be accessed via POST method for safety
 def delete_reservation(request, reservation_id):
     reservation = Reservation.objects.get(id=reservation_id)
     reservation.delete()
-    # Redirect back to the reservations listing page
     return redirect('view_reservations')
 
 
@@ -114,9 +111,12 @@ def create_order(request, reservation_id):
 
 def checkout_order(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    order.is_completed = True  # Mark the order as completed
+    order.is_completed = True
+    print(order.reservation_id)
+    print(order)
+    delete_reservation(request, order.reservation_id)
+    order.reservation = None
     order.save()
-    # Redirect to a confirmation page
     return redirect('order_completed', order_id=order.id)
 
 

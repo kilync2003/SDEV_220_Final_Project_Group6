@@ -2,7 +2,6 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    # home is accessible from the root and '/home/'
     path('', home, name='home'),
     path('home/', home, name='home'),
     path('menu/', menu, name='menu'),
